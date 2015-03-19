@@ -52,14 +52,14 @@ def get_image(url):
     return fp, True
 
 
-def init_cache():
+def init():
     """
     Populate the entire list of images in cache directory.
     """
-    # TODO: Find a better way to do it
     global cache
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    os.makedirs(WALL_DIR, exist_ok=True)
     cache = os.listdir(CACHE_DIR)
-    return cache
 
 
 def get_from_cache():
@@ -107,7 +107,7 @@ def get_from_subreddit(subred, limit=20):
 
 
 if __name__ == "__main__":
-    cache = init_cache()
+    init()
 
     parser = argparse.ArgumentParser(description='Set wallpaper from reddit/cache')
     parser.add_argument('subreddit', nargs='?', help="Subreddit to fetch wallpaper from")
