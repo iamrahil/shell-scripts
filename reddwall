@@ -124,6 +124,18 @@ def set_plasma_wallpaper(path):
     """
     dbus.SessionBus().get_object('org.kde.plasmashell', '/PlasmaShell').evaluateScript(js % path)
 
+def set_plasma_video_wallpaper(path):
+    js = """
+    var containers = desktops();
+    for(i=0; i<containers.length; i++) {
+        c = containers[i];
+        c.wallpaperPlugin = "org.kde.video";
+        c.currentConfigGroup = Array("Wallpaper", "org.kde.video", "General");
+        c.writeConfig("Video", "file://%s")
+    }
+    """
+    dbus.SessionBus().get_object('org.kde.plasmashell', '/PlasmaShell').evaluateScript(js % path)
+
 if __name__ == "__main__":
     init()
 
