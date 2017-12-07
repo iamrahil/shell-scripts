@@ -117,6 +117,7 @@ def set_plasma_wallpaper(path):
     var containers = desktops();
     for(i=0; i<containers.length; i++) {
         c = containers[i];
+        c.wallpaperPlugin = "org.kde.image";
         c.currentConfigGroup = Array("Wallpaper", "org.kde.image", "General");
         c.writeConfig("Image", "%s")
     }
