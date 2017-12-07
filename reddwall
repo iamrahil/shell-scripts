@@ -5,6 +5,7 @@ import urllib.request
 import os
 import random
 import argparse
+import dbus
 
 cache = []
 ROOT = os.getenv('HOME')
@@ -105,6 +106,22 @@ def get_from_subreddit(subred, limit=20):
             break
     return image_file
 
+def set_plasma_wallpaper(path):
+    """Set image at path as the plasma wallpaper
+
+    :path: Path of the image file
+    :returns: nothing
+
+    """
+    js = """
+    var containers = desktops();
+    for(i=0; i<containers.length; i++) {
+        c = containers[i];
+        c.currentConfigGroup = Array("Wallpaper", "org.kde.image", "General");
+        c.writeConfig("Image", "%s")
+    }
+    """
+    dbus.SessionBus().get_object('org.kde.plasmashell', '/PlasmaShell').evaluateScript(js % path)
 
 if __name__ == "__main__":
     init()
