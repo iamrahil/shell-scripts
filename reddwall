@@ -162,10 +162,4 @@ if __name__ == "__main__":
     else:
         img_file = get_from_cache()
 
-    content = img_file.read()
-    newfile = WALL_DIR + "wallpaper" + os.path.splitext(img_file.name)[1]
-    tfp = open(newfile, "wb")
-    tfp.write(content)
-    tfp.close()
-    if oldwall != newfile and oldwall != "":
-        os.remove(oldwall)
+    set_plasma_wallpaper(img_file.name)
