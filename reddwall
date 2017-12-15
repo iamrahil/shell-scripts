@@ -144,6 +144,7 @@ if __name__ == "__main__":
     parser.add_argument('--limit', '-l', type=int, default=20,
                         help="Number of posts to scan from a subreddit (default=20)")
     parser.add_argument('--file', '-f', help="Specify a particular file to put as wallpaper")
+    parser.add_argument('--video', '-v', help="Specify a particular video to put as wallpaper")
     parser.add_argument('--url', '-u',
                         help="Download a specific file to put as wallpaper")  # TODO: Group -u/-f mutually excl.
     Args = parser.parse_args()
@@ -154,6 +155,10 @@ if __name__ == "__main__":
         oldwall = ""
     if Args.file is not None:
         img_file = open(Args.file, "rb")
+    elif Args.video is not None:
+        vd_file = open(Args.video, "rb")
+        set_plasma_video_wallpaper(vd_file.name)
+        exit()
     elif Args.url is not None:
         img_file, _ = get_image(Args.url)
     elif Args.subreddit is not None:
